@@ -38,7 +38,7 @@ RSpec.describe Application, type: :model do
   end
 
   describe 'instance methods' do
-    it 'returns true if all status are the same' do
+    it 'returns true if all status are Approved' do
 
       shelter_1 = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
       pet_1 = shelter_1.pets.create(name: 'Mr. Pirate', breed: 'tuxedo shorthair', age: 5, adoptable: true)
@@ -60,11 +60,13 @@ RSpec.describe Application, type: :model do
 #      binding.pry
       expect(@application_1.all_pets_approved).to eq(true)
     end
+
+    it 'returns true if all pet applications have a status of Rejected or Approved' do
+      expect(@application_2.rejected_or_approved).to eq(false)
+      expect(@application_1.all_pets_approved).to eq(true)
+    end
   end
+
   describe 'class methods' do
-
   end
-
-
-
 end
