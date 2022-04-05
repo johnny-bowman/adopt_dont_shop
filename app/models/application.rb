@@ -13,6 +13,9 @@ class Application < ApplicationRecord
   enum status: { "In Progress" => "0", "Pending" => "1", "Approved" => "2", "Rejected" => "3" }
 
   def all_pets_approved
-     self.pet_applications.all? { |app_pets| app_pets.status == "Approved" }
+     self.application_pets.all? do |app_pets|
+       binding.pry
+       app_pets.status == "2"
+     end
   end
 end
