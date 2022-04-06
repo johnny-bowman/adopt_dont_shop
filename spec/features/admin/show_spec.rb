@@ -21,6 +21,11 @@
 # When I visit the other application's admin show page
 # Then I do not see that the pet has been accepted or rejected for that application
 # And instead I see buttons to approve or reject the pet for this specific application
+# As a visitor
+# When I visit an admin application show page
+# And I approve all pets on the application
+# And when I visit the show pages for those pets
+# Then I see that those pets are no longer "adoptable"
 
 require 'rails_helper'
 
@@ -88,7 +93,63 @@ RSpec.describe "Admin applications Show" do
       expect(page).to have_content(@pet_1.name)
       expect(page).to have_button("Approve")
       expect(page).to have_button("Reject")
+    end
 
+
+    it "after approving all pets on application redirected to show page with applications status changed to approved" do
+      visit "/admin/applications/#{@application_1.id}"
+      expect(page).to have_content(@pet_1.name)
+      expect(page).to have_content(@pet_2.name)
+      expect(page).to have_button("Reject")
+      click_on("Approve", match: :first)
+      expect(current_path).to eq("/admin/applications/#{@application_1.id}/")
+      expect(page).to have_content("This application has been approved!")
+      click_on("Approve", match: :first)
+      expect(current_path).to eq("/admin/applications/#{@application_1.id}/")
+      expect(page).to have_content("Approved")
+      expect(page).to_not have_button("Approve")
+      expect(page).to_not have_button("Reject")
+    end
+
+    it "if one pet is rejected change status to rejected" do
+      visit "/admin/applications/#{@application_1.id}"
+      expect(page).to have_content(@pet_1.name)
+      expect(page).to have_content(@pet_2.name)
+      expect(page).to have_button("Reject")
+      click_on("Approve", match: :first)
+      expect(current_path).to eq("/admin/applications/#{@application_1.id}/")
+      expect(page).to have_content("This application has been approved!")
+      click_on("Reject", match: :first)
+      expect(current_path).to eq("/admin/applications/#{@application_1.id}/")
+      expect(page).to have_content("Rejected")
+      expect(page).to_not have_button("Approve")
+      expect(page).to_not have_button("Reject")
+    end
+
+    it "after approving all pets on application redirected to show page with applications status changed to approved" do
+      visit "/admin/applications/#{@application_1.id}"
+      expect(page).to have_content(@pet_1.name)
+      expect(page).to have_content(@pet_2.name)
+      expect(page).to have_button("Reject")
+
+      click_on("Approve", match: :first)
+
+      expect(current_path).to eq("/admin/applications/#{@application_1.id}/")
+      expect(page).to have_content("This application has been approved!")
+
+      click_on("Approve", match: :first)
+
+      expect(current_path).to eq("/admin/applications/#{@application_1.id}/")
+      expect(page).to have_content("Approved")
+      expect(page).to_not have_button("Approve")
+      expect(page).to_not have_button("Reject")
+
+      visit "/pets/#{@pet_1.id}"
+
+      expect(page).to have_content("Adoptable: false")
+
+      visit "/pets/#{@pet_2.id}"
+      expect(page).to have_content("Adoptable: false")
     end
   end
 end

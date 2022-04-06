@@ -18,12 +18,13 @@ class AdminApplicationsController < ActionController::Base
     join_update.save
 
     if @application.all_pets_approved
+      @application.adopt_pet
       @application.status = "2"
       @application.save
+
     elsif @application.rejected_or_approved
      @application.status = "3"
      @application.save
-
     end
     redirect_to "/admin/applications/#{@application.id}/"
   end
