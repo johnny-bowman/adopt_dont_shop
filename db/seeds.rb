@@ -14,6 +14,7 @@
 @pet_3 = @shelter_3.pets.create(name: 'Lucille Bald', breed: 'sphynx', age: 8, adoptable: true)
 @pet_4 = @shelter_1.pets.create(name: 'Ann', breed: 'ragdoll', age: 5, adoptable: true)
 @pet_5 = @shelter_1.pets.create(name: 'Duke', breed: 'beagle', age: 1, adoptable: true)
+@pet_6 = @shelter_2.pets.create(name: 'Punky', breed: 'poodle', age: 1, adoptable: true)
 
 @application_1 = Application.create!(name: "Carol Crikey", street_address: "2022 S Fake Street",
    city: "Birmingham", state: "AL", zip_code: "54738", description: 'empty', status: "0")
