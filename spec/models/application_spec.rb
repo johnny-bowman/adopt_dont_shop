@@ -75,16 +75,12 @@ RSpec.describe Application, type: :model do
       expect(@application_1.all_pets_approved).to be true
     end
 
-# As a visitor
-# When I visit an admin application show page
-# And I approve all pets on the application
-# And when I visit the show pages for those pets
-# Then I see that those pets are no longer "adoptable"
     it '#adopt_pet change pet column adoptable to false' do
+    @application_pets_1 = @pet_1.applications << @application_1
+
       expect(@pet_1.adoptable).to be true
-      binding.pry
-      @application_1.adopt_pet
-      expect(@pet_1.adoptable).to be false
+      expected = @application_1.adopt_pet
+      expect(expected[0].adoptable).to be false
     end
   end
 
