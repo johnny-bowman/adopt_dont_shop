@@ -16,6 +16,9 @@ class Shelter < ApplicationRecord
       .order("pets_count DESC")
   end
 
+  def self.rev_alphabetical_order
+    find_by_sql("SELECT * FROM shelters ORDER BY name DESC;")
+  end
 
   def pet_count
     pets.count
