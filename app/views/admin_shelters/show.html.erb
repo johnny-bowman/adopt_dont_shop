@@ -2,5 +2,7 @@
 <h2>Full Address: <%= @shelter.address %></h2>
 
 <h2><%= @shelter.name %> Statistics</h2>
+<% if @shelter.pets  %>
 <p>Ave age of pets: <%= @shelter.pet_ave_age %></p>
 <p>Number of adoptable pets: <%= @shelter.pet_count_adoptable %></p>
+<% end  %>
