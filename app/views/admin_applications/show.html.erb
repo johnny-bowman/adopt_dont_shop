@@ -1,8 +1,10 @@
 <h1> Admin Application for: <%= @application.name %></h1>
-<% if @application.status == "Accepted" %>
+<% if @application.status == "Approved" %>
      <a href="#" class="btn btn-success btn-lg disabled" role="button" aria-disabled="true">Application Status: <%= @application.status %></a>
+    <%= "This application has been approved!" %>
 <% elsif @application.status == "Rejected" %>
      <a href="#" class="btn btn-danger btn-lg disabled" role="button" aria-disabled="true">Application Status: <%= @application.status %></a>
+    <%= "This application has been rejected!" %>
  <% end %>
 
 <h3>Pets to adpot: <p>
@@ -23,11 +25,11 @@
         <%= f.text_field :petid, value: pet.id, hidden: true %>
       <% end %>
 
-  <% elsif ApplicationPet.app_pet(@application.id,pet.id).status == "Approved" %>
+  <% elsif ApplicationPet.app_pet(@application.id,pet.id).status == "Approved" && @application.rejected_or_approved == false %> %>
     <%= "This application has been approved!" %>
     <br>
 
-  <% elsif ApplicationPet.app_pet(@application.id,pet.id).status == "Rejected" %>
+  <% elsif ApplicationPet.app_pet(@application.id,pet.id).status == "Rejected" && @application.rejected_or_approved == false %> %>
     <%= "This application has been rejected!" %>
     <br>
   <% end %>

@@ -13,6 +13,12 @@ class Application < ApplicationRecord
   enum status: { "In Progress" => "0", "Pending" => "1", "Approved" => "2", "Rejected" => "3" }
 
   def all_pets_approved
-     self.pet_applications.all? { |app_pets| app_pets.status == "Approved" }
+     self.application_pets.all? do |app_pets|
+       app_pets.status == "Approved"
+     end
+  end
+
+  def rejected_or_approved
+    self.application_pets.all? { |app_pets| app_pets.status == "Approved" || app_pets.status == "Rejected" }
   end
 end

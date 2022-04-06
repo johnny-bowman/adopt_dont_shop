@@ -45,7 +45,6 @@ RSpec.describe "Admin applications Show" do
     @applicaion_pets_2 = @pet_2.applications << @application_1
     @applicaion_pets_3 = @pet_1.applications << @application_2
     @applicaion_pets_4 = @pet_2.applications << @application_2
-
   end
   describe "display" do
     it "shows an admin application with pets to approve" do
