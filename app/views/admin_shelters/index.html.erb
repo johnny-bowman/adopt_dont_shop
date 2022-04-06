@@ -1,6 +1,7 @@
 <h1>Shelters</h1>
 <% @shelters.each do |shelter| %>
-  <p><%= shelter.name %></p>
+  <p><strong>Name: </strong><%= link_to "#{shelter.name}", "/admin/shelters/#{shelter.id}", method: :get %></p>
+  <br>
 <% end %>
 
 <h2>Shelter's with Pending Applications:</h2>

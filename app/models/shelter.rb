@@ -2,6 +2,7 @@ class Shelter < ApplicationRecord
   validates :name, presence: true
   validates :rank, presence: true, numericality: true
   validates :city, presence: true
+  # validates :address, presence: true
 
   has_many :pets, dependent: :destroy
 
@@ -20,8 +21,12 @@ class Shelter < ApplicationRecord
     find_by_sql("SELECT * FROM shelters ORDER BY name DESC;")
   end
 
+  def self.find_with_id(given_id)
+    find_by_sql("SELECT * FROM shelters WHERE shelters.id = #{given_id};").first
+  end
+
   def self.with_pending_applications
-    joins(pets: :applications).where("applications.status = '1'").distinct
+    joins(pets: :applications).where("applications.status = '1'").order(:name).distinct
   end
 
   def pet_count
