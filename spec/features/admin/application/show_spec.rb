@@ -169,7 +169,7 @@ RSpec.describe "Admin applications Show" do
       visit "/admin/applications/#{@application_1.id}"
 
       within "#pet-#{@pet_2.id}" do
-      save_and_open_page
+#      save_and_open_page
         expect(page).to have_content("This application has been approved!")
         expect(page).to have_button("Reject")
         expect(page).to_not have_button("Approve")
