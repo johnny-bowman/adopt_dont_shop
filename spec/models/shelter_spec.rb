@@ -47,6 +47,10 @@ RSpec.describe Shelter, type: :model do
       expect(Shelter.rev_alphabetical_order).to eq([@shelter_2, @shelter_3, @shelter_1])
     end
 
+    it "returns shelter addresses" do
+      expect(Shelter.addresses.first.address).to eq('832 Unreal AVe, Harlingen, TX, 58375')
+    end
+
     it "returns all shelters with pending applications" do
       @application_1 = Application.create!(name: "Carol Crikey", street_address: "2022 S Fake Street", city: "Birmingham", state: "AL", zip_code: "54738", description: 'empty', status: "Pending")
 

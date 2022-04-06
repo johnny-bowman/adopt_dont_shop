@@ -33,4 +33,12 @@ RSpec.describe "admin shelters index" do
     expect(page).to have_content("Shelter's with Pending Applications:\nAurora shelter")
     expect(page).to_not have_content("Shelter's with Pending Applications:\nAurora shelter\nRGV animal shelter")
   end
+
+  it "lists shelter addresses" do
+    visit "/admin/shelters"
+
+    expect(page).to have_content('Full Address: 185 Fake St, Aurora, CO, 38476')
+    expect(page).to have_content('Full Address: 832 Unreal AVe, Harlingen, TX, 58375')
+    expect(page).to have_content('Full Address: 957 Notreal Ave, Denver, CO, 38475')
+  end
 end
