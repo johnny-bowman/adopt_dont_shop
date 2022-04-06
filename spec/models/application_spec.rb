@@ -38,7 +38,7 @@ RSpec.describe Application, type: :model do
   end
 
   describe 'instance methods' do
-    it 'returns true if all status are Approved' do
+    it '#all_pets_approved :returns true if all status are Approved' do
 
       shelter_1 = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
       pet_1 = shelter_1.pets.create(name: 'Mr. Pirate', breed: 'tuxedo shorthair', age: 5, adoptable: true)
@@ -57,7 +57,7 @@ RSpec.describe Application, type: :model do
       expect(@application_1.all_pets_approved).to eq(true)
     end
 
-    it 'returns true if all pet applications have a status of Rejected or Approved' do
+    it '#rejected_or_approved :returns true if all pet applications have a status of Rejected or Approved' do
       @application_pets_1 = @pet_1.applications << @application_1
       @application_pets_2 = @pet_2.applications << @application_1
       @application_pets_3 = @pet_3.applications << @application_2
@@ -73,6 +73,14 @@ RSpec.describe Application, type: :model do
       join_update_3.status = "1"
       join_update_3.save
       expect(@application_1.all_pets_approved).to be true
+    end
+
+    it '#adopt_pet change pet column adoptable to false' do
+    @application_pets_1 = @pet_1.applications << @application_1
+
+      expect(@pet_1.adoptable).to be true
+      expected = @application_1.adopt_pet
+      expect(expected[0].adoptable).to be false
     end
   end
 
