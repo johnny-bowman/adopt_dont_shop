@@ -25,11 +25,11 @@
         <%= f.text_field :petid, value: pet.id, hidden: true %>
       <% end %>
 
-  <% elsif ApplicationPet.app_pet(@application.id,pet.id).status == "Approved" && @application.rejected_or_approved == false %> %>
+  <% elsif ApplicationPet.app_pet(@application.id,pet.id).status == "Approved" && @application.rejected_or_approved == false %>
     <%= "This application has been approved!" %>
     <br>
 
-  <% elsif ApplicationPet.app_pet(@application.id,pet.id).status == "Rejected" && @application.rejected_or_approved == false %> %>
+  <% elsif ApplicationPet.app_pet(@application.id,pet.id).status == "Rejected" && @application.rejected_or_approved == false %>
     <%= "This application has been rejected!" %>
     <br>
   <% end %>
