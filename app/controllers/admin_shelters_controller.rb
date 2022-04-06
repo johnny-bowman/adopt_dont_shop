@@ -5,8 +5,6 @@ class AdminSheltersController < ApplicationController
   end
 
   def show
-    binding.pry
-    @shid = params[:id]
-    @shelters = Shelter.find_by_sql("SELECT  'shelters'.* FROM "shelters" WHERE 'shelters'.'id' = #{@shid}")
+    @shelter = Shelter.find_with_id(params[:id])
   end
 end

@@ -22,7 +22,7 @@ class Shelter < ApplicationRecord
   end
 
   def self.find_with_id(given_id)
-    find_by_sql("SELECT * FROM shelters WHERE shelters.id = #{given_id};")
+    find_by_sql("SELECT * FROM shelters WHERE shelters.id = #{given_id};").first
   end
 
   def self.with_pending_applications
