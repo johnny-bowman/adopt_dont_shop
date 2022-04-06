@@ -44,9 +44,8 @@ RSpec.describe "admin shelters index" do
 
   it "has links to show pages" do
     visit "/admin/shelters"
-    save_and_open_page
+  
     click_link("Aurora shelter")
-    save_and_open_page
     expect(current_path).to eq("/admin/shelters/#{@shelter_1.id}")
 
     visit "/admin/shelters"
