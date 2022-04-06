@@ -41,4 +41,12 @@ RSpec.describe "admin shelters index" do
     expect(page).to have_content('Full Address: 832 Unreal AVe, Harlingen, TX, 58375')
     expect(page).to have_content('Full Address: 957 Notreal Ave, Denver, CO, 38475')
   end
+
+  it "lists pending applications alphabetically" do
+    @application_4 = Application.create!(name: "Doug Bowflex", street_address: "9375 Unreal Hwy", city: "Alna", state: "ME", zip_code: "58473", description: 'empty', status: "Pending")
+    @pet_3.applications << @application_4
+
+    visit "/admin/shelters"
+    expect(page).to have_content("Shelter's with Pending Applications:\nAurora shelter\nFancy pets of Colorado")
+  end
 end
