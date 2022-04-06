@@ -45,11 +45,17 @@ RSpec.describe "Admin applications Show" do
     @application_2 = Application.create!(name: "John H", street_address: "123 Anywhere Ave", city: "Denver",
       state: "CO", zip_code: "80204", description: 'I would be good at it', status: "Pending")
 
+    @application_3 = Application.create!(name: "Johnny B", street_address: "123 Anywhere Ave", city: "Denver",
+      state: "CO", zip_code: "80204", description: 'I would be good at it', status: "Approved")
+
     #set up the join table ids
     @applicaion_pets_1 = @pet_1.applications << @application_1
     @applicaion_pets_2 = @pet_2.applications << @application_1
     @applicaion_pets_3 = @pet_1.applications << @application_2
     @applicaion_pets_4 = @pet_2.applications << @application_2
+    @pet_2.applications << @application_2
+    @pet_2.applications << @application_3
+
   end
   describe "display" do
     it "shows an admin application with pets to approve" do
@@ -150,6 +156,25 @@ RSpec.describe "Admin applications Show" do
 
       visit "/pets/#{@pet_2.id}"
       expect(page).to have_content("Adoptable: false")
+    end
+#
+#     As a visitor
+# When a pet has an "Approved" application on them
+# And when the pet has a "Pending" application on them
+# And I visit the admin application show page for the pending application
+# Then next to the pet I do not see a button to approve them
+# And instead I see a message that this pet has been approved for adoption
+# And I do see a button to reject them
+    it 'Display only reject button on pending pet application' do
+      visit "/admin/applications/#{@application_1.id}"
+
+      within "#pet-#{@pet_2.id}" do
+      save_and_open_page
+        expect(page).to have_content("This application has been approved!")
+        expect(page).to have_button("Reject")
+        expect(page).to_not have_button("Approve")
+      end
+
     end
   end
 end
