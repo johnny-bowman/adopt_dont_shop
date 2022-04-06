@@ -6,6 +6,9 @@ class AdminSheltersController < ApplicationController
 
   def show
     @shelter = Shelter.find_with_id(params[:id])
+<<<<<<< HEAD
     # binding.pry
+=======
+>>>>>>> 36c6ba13ac39d8a858565025b2bad320c71da555
   end
 end
