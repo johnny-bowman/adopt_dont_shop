@@ -16,6 +16,7 @@ class Shelter < ApplicationRecord
       .order("pets_count DESC")
   end
 
+
   def pet_count
     pets.count
   end
