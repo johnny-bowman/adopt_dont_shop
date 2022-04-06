@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "Applications Show" do
   before :each do
-    @shelter_1 = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
+    @shelter_1 = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9, address: '185 Fake St, Aurora, CO, 38476')
 
     @pet_1 = @shelter_1.pets.create(name: 'Mr. Pirate', breed: 'tuxedo shorthair', age: 5, adoptable: false)
     @pet_2 = @shelter_1.pets.create(name: 'Clawdia', breed: 'shorthair', age: 3, adoptable: true)
@@ -76,13 +76,13 @@ RSpec.describe "Applications Show" do
     fill_in 'Search for pet name', with: 'Dorothy'
     click_button 'Submit'
     click_link 'Adopt this Pet'
-   
+
     expect(page).to have_content("Status: In Progress")
     expect(page).to_not have_content("Status: Pending")
 
     fill_in 'Why would you be a good owner', with: "I'm super nice and chill!"
     click_button 'Submit Application'
-    
+
     # save_and_open_page
     expect(current_path).to eq("/applications/#{application_2.id}")
     expect(page).to_not have_content("Status: In Progress")
