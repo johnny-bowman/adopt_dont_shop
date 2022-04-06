@@ -9,8 +9,9 @@ RSpec.describe "admin shelters index" do
 
   it "lists all shelters in reverse alphabetical order" do
     visit "/admin/shelters"
+    # save_and_open_page
 
-    expect(@shelter_2.name).to appear_before(@shelter_3)
-    expect(@shelter_3.name).to appear_before(@shelter_1)
+    expect('RGV animal shelter').to appear_before('Fancy pets of Colorado')
+    expect('Fancy pets of Colorado').to appear_before('Aurora shelter')
   end
 end
