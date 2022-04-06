@@ -21,9 +21,14 @@ class Shelter < ApplicationRecord
     find_by_sql("SELECT * FROM shelters ORDER BY name DESC;")
   end
 
-  def self.addresses
-    find_by_sql("SELECT name,address FROM shelters ORDER BY name DESC;")
+  def self.find_with_id(given_id)
+    find_by_sql("SELECT * FROM shelters WHERE shelters.id = #{given_id};")
   end
+
+  # def address
+  #   binding.pry
+  #   find_by_sql("SELECT name,address FROM shelters ORDER BY name DESC;")
+  # end
 
   def self.with_pending_applications
     joins(pets: :applications).where("applications.status = '1'").order(:name).distinct

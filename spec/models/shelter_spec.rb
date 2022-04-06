@@ -47,8 +47,12 @@ RSpec.describe Shelter, type: :model do
       expect(Shelter.rev_alphabetical_order).to eq([@shelter_2, @shelter_3, @shelter_1])
     end
 
-    it "returns shelter addresses" do
-      expect(Shelter.addresses.first.address).to eq('832 Unreal AVe, Harlingen, TX, 58375')
+    # it "returns shelter addresses" do
+    #   expect(Shelter.addresses.first.address).to eq('832 Unreal AVe, Harlingen, TX, 58375')
+    # end
+
+    it "finds shelters using sql by id" do
+      expect(Shelter.find_with_id(@shelter_1.id)).to eq([@shelter_1])
     end
 
     it "returns all shelters with pending applications" do

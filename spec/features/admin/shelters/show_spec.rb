@@ -19,26 +19,10 @@ RSpec.describe "admin shelters index" do
 
   end
 
-  it "lists all shelters in reverse alphabetical order" do
-    visit "/admin/shelters"
+  it "lists shelter addresses" do
+    visit "/admin/shelters/#{@shelter_1.id}"
     # save_and_open_page
-
-    expect('RGV animal shelter').to appear_before('Fancy pets of Colorado')
-    expect('Fancy pets of Colorado').to appear_before('Aurora shelter')
-  end
-
-  it "lists shelters with pending applications" do
-    visit "/admin/shelters"
-    # save_and_open_page
-    expect(page).to have_content("Shelter's with Pending Applications:\nAurora shelter")
-    expect(page).to_not have_content("Shelter's with Pending Applications:\nAurora shelter\nRGV animal shelter")
-  end
-
-  it "lists pending applications alphabetically" do
-    @application_4 = Application.create!(name: "Doug Bowflex", street_address: "9375 Unreal Hwy", city: "Alna", state: "ME", zip_code: "58473", description: 'empty', status: "Pending")
-    @pet_3.applications << @application_4
-
-    visit "/admin/shelters"
-    expect(page).to have_content("Shelter's with Pending Applications:\nAurora shelter\nFancy pets of Colorado")
+    expect(page).to have_content('Name: Aurora shelter')
+    expect(page).to have_content('Full Address: 185 Fake St, Aurora, CO, 38476')
   end
 end
