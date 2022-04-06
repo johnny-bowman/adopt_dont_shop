@@ -14,8 +14,11 @@ class Application < ApplicationRecord
 
   def all_pets_approved
      self.application_pets.all? do |app_pets|
-       binding.pry
-       app_pets.status == "2"
+       app_pets.status == "Approved"
      end
+  end
+
+  def rejected_or_approved
+    self.application_pets.all? { |app_pets| app_pets.status == "Approved" || app_pets.status == "Rejected" }
   end
 end

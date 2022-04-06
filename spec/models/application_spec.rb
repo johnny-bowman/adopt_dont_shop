@@ -31,9 +31,9 @@ RSpec.describe Application, type: :model do
       state: "CO", zip_code: "80204", description: 'I would be good at it', status: "Approved")
 
     #set up the join table ids
-    #@application_pets_1 = @pet_1.applications << @application_1
-    #@application_pets_2 = @pet_2.applications << @application_1
-    #@application_pets_3 = @pet_3.applications << @application_2
+#    @application_pets_1 = @pet_1.applications << @application_1
+ #   @application_pets_2 = @pet_2.applications << @application_1
+ #   @application_pets_3 = @pet_3.applications << @application_2
 
   end
 
@@ -54,16 +54,25 @@ RSpec.describe Application, type: :model do
       join_update_2 = ApplicationPet.app_pet(application_1.id, pet_2.id)
       join_update_2.status = "1"
       join_update_2.save
-#      join_update_3 = ApplicationPet.app_pet(@application_1.id, @pet_3.id)
-#      join_update_3.status = "1"
-#      join_update_3.save
-#      binding.pry
       expect(@application_1.all_pets_approved).to eq(true)
     end
 
     it 'returns true if all pet applications have a status of Rejected or Approved' do
+      @application_pets_1 = @pet_1.applications << @application_1
+      @application_pets_2 = @pet_2.applications << @application_1
+      @application_pets_3 = @pet_3.applications << @application_2
       expect(@application_2.rejected_or_approved).to eq(false)
-      expect(@application_1.all_pets_approved).to eq(true)
+
+      join_update_1 = ApplicationPet.app_pet(@application_1.id, @pet_1.id)
+      join_update_1.status = "1"
+      join_update_1.save
+      join_update_2 = ApplicationPet.app_pet(@application_1.id, @pet_2.id)
+      join_update_2.status = "1"
+      join_update_2.save
+      join_update_3 = ApplicationPet.app_pet(@application_2.id, @pet_3.id)
+      join_update_3.status = "1"
+      join_update_3.save
+      expect(@application_1.all_pets_approved).to be true
     end
   end
 
