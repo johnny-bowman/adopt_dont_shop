@@ -18,19 +18,9 @@ RSpec.describe Shelter, type: :model do
     @shelter_3 = Shelter.create(name: 'Fancy pets of Colorado', city: 'Denver, CO', foster_program: true, rank: 10)
 
     @pet_1 = @shelter_1.pets.create(name: 'Mr. Pirate', breed: 'tuxedo shorthair', age: 5, adoptable: false)
-    @pet_2 = @shelter_2.pets.create(name: 'Clawdia', breed: 'shorthair', age: 3, adoptable: true)
+    @pet_2 = @shelter_1.pets.create(name: 'Clawdia', breed: 'shorthair', age: 3, adoptable: true)
     @pet_3 = @shelter_3.pets.create(name: 'Lucille Bald', breed: 'sphynx', age: 8, adoptable: true)
     @pet_4 = @shelter_1.pets.create(name: 'Ann', breed: 'ragdoll', age: 5, adoptable: true)
-
-    @application_1 = Application.create!(name: "Carol Crikey", street_address: "2022 S Fake Street", city: "Birmingham", state: "AL", zip_code: "54738", description: 'empty', status: "Pending")
-
-    @application_2 = Application.create!(name: "Adam Fakeman", street_address: "837 Unreal Hwy", city: "Portland", state: "CA", zip_code: "29374", description: 'empty', status: "In Progress")
-
-    @application_3 = Application.create!(name: "Johnny Fakesmith", street_address: "284 Notreal Ave", city: "Heaven", state: "FL", zip_code: "20487", description: 'empty', status: "Pending")
-
-    @pet_1.applications << @application_1
-    @pet_2.applications << @application_2
-    @pet_3.applications << @application_3
   end
 
   describe 'class methods' do
@@ -57,6 +47,16 @@ RSpec.describe Shelter, type: :model do
     end
 
     it "returns all shelters with pending applications" do
+      @application_1 = Application.create!(name: "Carol Crikey", street_address: "2022 S Fake Street", city: "Birmingham", state: "AL", zip_code: "54738", description: 'empty', status: "Pending")
+
+      @application_2 = Application.create!(name: "Adam Fakeman", street_address: "837 Unreal Hwy", city: "Portland", state: "CA", zip_code: "29374", description: 'empty', status: "In Progress")
+
+      @application_3 = Application.create!(name: "Johnny Fakesmith", street_address: "284 Notreal Ave", city: "Heaven", state: "FL", zip_code: "20487", description: 'empty', status: "Pending")
+
+      @pet_1.applications << @application_1
+      @pet_2.applications << @application_2
+      @pet_3.applications << @application_3
+
       expect(Shelter.with_pending_applications).to eq([@shelter_1, @shelter_3])
     end
   end
