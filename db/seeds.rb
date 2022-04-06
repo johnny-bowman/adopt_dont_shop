@@ -21,7 +21,13 @@
  @pet_2.applications << @application_1
 @application_2 = Application.create!(name: "John H", street_address: "123 Anywhere",
    city: "Denver", state: "CO", zip_code: "80204", description: 'I want one', status: "Pending")
+
+@application_3 = Application.create!(name: "Johnny B ", street_address: "123 Anywhere",
+   city: "Denver", state: "CO", zip_code: "80204", description: 'I want one', status: "Approved")
+
  @pet_3.applications << @application_2
  @pet_4.applications << @application_2
+ @pet_5.applications << @application_2
+ @pet_5.applications << @application_3
 
  @pet_application_1 = ApplicationPet.find_or_create_by!(application_id: @application_2.id, pet_id: @pet_5.id)
