@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "admin shelters index" do
+RSpec.describe "admin shelters show page" do
   before :each do
     @shelter_1 = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9, address: '185 Fake St, Aurora, CO, 38476')
     @shelter_2 = Shelter.create(name: 'RGV animal shelter', city: 'Harlingen, TX', foster_program: false, rank: 5, address: '832 Unreal AVe, Harlingen, TX, 58375')
@@ -16,13 +16,24 @@ RSpec.describe "admin shelters index" do
 
     @pet_1.applications << @application_1
     @pet_2.applications << @application_2
+    @pet_3.applications << @application_1
 
+    visit "/admin/shelters/#{@shelter_1.id}"
   end
 
   it "lists shelter addresses" do
-    visit "/admin/shelters/#{@shelter_1.id}"
     # save_and_open_page
     expect(page).to have_content('Name: Aurora shelter')
     expect(page).to have_content('Full Address: 185 Fake St, Aurora, CO, 38476')
+  end
+
+  describe 'I see a section for statistics ' do
+
+    it "show average age of all adoptable pets for shelter" do
+      @pet_4 = @shelter_1.pets.create(name: 'Duke', breed: 'tuxedo shorthair', age: 2, adoptable: true)
+      visit "/admin/shelters/#{@shelter_1.id}"
+      expect(page).to have_content("Ave age of pets: 3.5")
+
+    end
   end
 end
