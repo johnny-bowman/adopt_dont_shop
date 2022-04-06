@@ -29,7 +29,8 @@ RSpec.describe "admin shelters index" do
 
   it "lists shelters with pending applications" do
     visit "/admin/shelters"
-
+    save_and_open_page
     expect(page).to have_content("Shelter's with Pending Applications:\nAurora shelter")
+    expect(page).to_not have_content("Shelter's with Pending Applications:\nAurora shelter\nRGV animal shelter")
   end
 end
